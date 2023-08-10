@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comércio</title>
+    <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    input, textarea {
+      margin-bottom: 10px;
+      padding: 5px;
+      transition: border-color 0.3s ease;
+      border: 1px solid #ccc;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .product-list {
+      margin-top: 20px;
+    }
+
+    .product {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Comércio</h1>
+
+    <form id="formularioProduto">
+      <input type="text" id="titulo" placeholder="Título" required>
+      <textarea id="descricao" placeholder="Descrição" required></textarea>
+      <input type="number" id="preco" placeholder="Preço" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <div class="product-list">
+      <h2>Produtos Cadastrados</h2>
+      <div id="produtos"></div>
+    </div>
+  </div>
+
+  <script>
+    var arrayProdutos = [];
+
+    function adicionarProduto(evento) {
+      evento.preventDefault();
+
+      var titulo = document.getElementById('titulo').value;
+      var descricao = document.getElementById('descricao').value;
+      var preco = document.getElementById('preco').value;
+
+      var produto = {
+        titulo: titulo,
+        descricao: descricao,
+        preco: preco
+      };
+
+      arrayProdutos.push(produto);
+
+      document.getElementById('titulo').value = '';
+      document.getElementById('descricao').value = '';
+      document.getElementById('preco').value = '';
+
+      atualizarListaProdutos();
+    }
+
+    function atualizarListaProdutos() {
+  var divProdutos = document.getElementById('produtos');
+  divProdutos.innerHTML = '';
+
+  arrayProdutos.forEach(function(produto) {
+    var divProduto = document.createElement('div');
+    divProduto.classList.add('product');
+
+    var titulo = document.createElement('h3');
+    titulo.textContent = produto.titulo;
+
+    var descricao = document.createElement('p');
+    descricao.textContent = produto.descricao;
+
+    var preco = document.createElement('p');
+    preco.textContent = 'Preço: R$ ' + produto.preco;
+
+    var imagem = document.createElement('img');
+    imagem.src = 'image/macaco.jpg'; // Substitua pelo caminho correto da imagem desejada
+    imagem.width = 200;
+    imagem.height = 200;
+
+    divProduto.appendChild(titulo);
+    divProduto.appendChild(descricao);
+    divProduto.appendChild(preco);
+    divProduto.appendChild(imagem);
+
+    divProdutos.appendChild(divProduto);
+  });
+}
+
+    var formulario = document.getElementById('formularioProduto');
+    formulario.addEventListener('submit', adicionarProduto);
+  </script>
+</body>
+</html>
